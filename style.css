@@ -1,0 +1,59 @@
+@font-face
+{
+    font-family: Roboto;
+    src:url(fonts/roboto.ttf);
+}
+html
+{
+    height: 100%;
+}
+body
+{
+    background-image: url(images/bcg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: whitesmoke;
+    font-family: Roboto;
+}
+h1
+{
+    text-align: center;
+    color: white;
+}
+main
+{
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+}
+
+main > p
+{
+    margin: 0 auto;
+    font-size: 17px;
+    width: 300px;
+    margin-top: 30px;
+}
+
+main > div
+{
+    border-radius: 5px;
+    height: 30px;
+    margin: 0;
+    background-color: white;
+    color: rgb(19, 18, 18);
+    text-align: right;
+    padding-right: 3px;
+}
+div > input
+{
+    height: 28px;
+    border: none;
+    width: 220px;
+}
+div > img
+{
+    float: left;
+    padding-top: 2px;
+    padding-left: 2px;
+}
