@@ -40,14 +40,14 @@ class Main
         .catch(error => {console.log("Error: ", error)});
     }
 
-    converter(toConv, conv, data)
+    converter(toConv, conv, rate)
     {
         let toConvert = document.getElementById(toConv);
         let converted = document.getElementById(conv);
 
         toConvert.onchange = () =>
         {
-            converted.value = Math.round(toConvert.value * data * 100) / 100;
+            converted.value = Math.round(toConvert.value * rate * 100) / 100;
         }
     }
 }
