@@ -27,15 +27,15 @@ class Main
         })
         .then(res => {
             let data = res.rates[0].mid;
+            data = Math.round(data * 100) / 100;
             console.log(typeof(data));
 
             if(typeof(data) == "number" && data != 0)
             {
                 this.converter("gbpInput","plnInput", data);
                 this.converter("plnInput","gbpInput", 1/data);
-                document.getElementById("data").innerText = "1 GBP = " + Math.round(data * 100) / 100 + " PLN";
+                document.getElementById("data").innerText = "1 GBP = " + data + " PLN";
             }
-            
         })
         .catch(error => {console.log("Error: ", error)});
     }
