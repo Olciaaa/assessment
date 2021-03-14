@@ -1,45 +1,48 @@
 class Main
 {
     constructor() {
-        this.fillingFields("gbpInput","plnInput");
-        this.fillingFields("plnInput","gbpInput");
-        this.getJSONFromUrl();
+        this.gettingData();
     }
     
-    getJSONFromUrl()
+    gettingData()
     {
-        let data = fetch("http://localhost:3000/rate", {
-            method: 'GET', //*GET, POST, PUT, DELETE, etc.
-            mode: 'cors', //no-cors, *cors, same-origin
-            cache: 'no-cache', //*default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', //include, *same-origin, omit
+        fetch("http://localhost:3000/rate", {
+            method: 'GET',
+            mode: 'cors', 
+            cache: 'no-cache',
+            credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin':'http://localhost:3000/'
-                //'Content-Type': 'application/x-www-form-urlencoded',
             },
-            redirect: 'follow', // manual, *follow, error
-            referrerPolicy: 'no-referrer', // no-referrer, *client
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer', 
         })
         .then(res => {
             if (res.ok) {
-                return res.json()
+                return res.json();
             } else {
                 return Promise.reject(`Http error: ${res.status}`);
             }
         })
-        .catch(error => console.log("Błąd: ", error));
-        console.log(data);
+        .then(res => {
+            let data = res.rates[0].mid;
+            console.log(data);
+            this.converter("gbpInput","plnInput", data);
+            this.converter("plnInput","gbpInput", 1/data);
+            document.getElementById("data").innerText = "1 GBP = " + Math.round(data * 100) / 100 + " PLN";
+        })
+        .catch(error => {console.log("Error: ", error)});
     }
 
-    fillingFields(toConv, conv)
+    converter(toConv, conv, data)
     {
         let toConvert = document.getElementById(toConv);
         let converted = document.getElementById(conv);
 
         toConvert.onchange = () =>
         {
-            converted.value = toConvert.value;
+            converted.value = Math.round(toConvert.value * data * 100) / 100;
         }
     }
 }

@@ -10,9 +10,19 @@ app.get("/", function(req, res)
 })
 
 var request = require('request');
+var urlExists = require('url-exists');
+
 app.get('/rate', function(req,res) {
     var newurl = 'http://api.nbp.pl/api/exchangerates/rates/a/gbp/?format=json';
-    request(newurl).pipe(res);
+    
+    urlExists("http://api.nbp.pl", function(err, exists) {
+        if(exists == true)
+        {
+            request(newurl).pipe(res);
+        }
+    });
+
+    
 });
 
 
