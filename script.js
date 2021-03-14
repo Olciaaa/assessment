@@ -27,10 +27,15 @@ class Main
         })
         .then(res => {
             let data = res.rates[0].mid;
-            console.log(data);
-            this.converter("gbpInput","plnInput", data);
-            this.converter("plnInput","gbpInput", 1/data);
-            document.getElementById("data").innerText = "1 GBP = " + Math.round(data * 100) / 100 + " PLN";
+            console.log(typeof(data));
+
+            if(typeof(data) == "number" && data != 0)
+            {
+                this.converter("gbpInput","plnInput", data);
+                this.converter("plnInput","gbpInput", 1/data);
+                document.getElementById("data").innerText = "1 GBP = " + Math.round(data * 100) / 100 + " PLN";
+            }
+            
         })
         .catch(error => {console.log("Error: ", error)});
     }
